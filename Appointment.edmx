@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="appointmentInfo">
+          <Key>
+            <PropertyRef Name="appointment_Id" />
+          </Key>
+          <Property Name="appointment_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctor_Id" Type="int" />
+          <Property Name="patient_Id" Type="int" />
+          <Property Name="doctor_Name" Type="varchar" MaxLength="30" />
+          <Property Name="patient_Name" Type="varchar" MaxLength="30" />
+          <Property Name="appointment_Date" Type="date" />
+          <Property Name="appointment_Time" Type="time" Precision="7" />
+          <Property Name="appointment_Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="doctorDetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctor_Id" Type="int" />
+          <Property Name="startTime" Type="datetime" />
+          <Property Name="endTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="user_Info">
+          <Key>
+            <PropertyRef Name="user_Id" />
+          </Key>
+          <Property Name="user_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_Id" Type="int" />
+          <Property Name="first_Name" Type="varchar" MaxLength="20" />
+          <Property Name="last_Name" Type="varchar" MaxLength="20" />
+          <Property Name="email_Address" Type="varchar" MaxLength="50" />
+          <Property Name="mobile_Number" Type="varchar" MaxLength="10" />
+          <Property Name="dob" Type="date" />
+        </EntityType>
+        <EntityType Name="userLogin">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="userRole">
+          <Key>
+            <PropertyRef Name="role_Id" />
+          </Key>
+          <Property Name="role_Id" Type="int" Nullable="false" />
+          <Property Name="role_Name" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__doctorDet__docto__47DBAE45">
+          <End Role="userLogin" Type="Self.userLogin" Multiplicity="0..1" />
+          <End Role="doctorDetails" Type="Self.doctorDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userLogin">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="doctorDetails">
+              <PropertyRef Name="doctor_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userLogin__RoleI__44FF419A">
+          <End Role="userRole" Type="Self.userRole" Multiplicity="0..1" />
+          <End Role="userLogin" Type="Self.userLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRole">
+              <PropertyRef Name="role_Id" />
+            </Principal>
+            <Dependent Role="userLogin">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userLogin__RoleI__5AEE82B9">
+          <End Role="userRole" Type="Self.userRole" Multiplicity="0..1" />
+          <End Role="userLogin" Type="Self.userLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRole">
+              <PropertyRef Name="role_Id" />
+            </Principal>
+            <Dependent Role="userLogin">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userLogin__RoleI__5EBF139D">
+          <End Role="userRole" Type="Self.userRole" Multiplicity="0..1" />
+          <End Role="userLogin" Type="Self.userLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRole">
+              <PropertyRef Name="role_Id" />
+            </Principal>
+            <Dependent Role="userLogin">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userLogin__RoleI__5FB337D6">
+          <End Role="userRole" Type="Self.userRole" Multiplicity="0..1" />
+          <End Role="userLogin" Type="Self.userLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRole">
+              <PropertyRef Name="role_Id" />
+            </Principal>
+            <Dependent Role="userLogin">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="appointmentInfo" EntityType="Self.appointmentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doctorDetails" EntityType="Self.doctorDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_Info" EntityType="Self.user_Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userLogin" EntityType="Self.userLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userRole" EntityType="Self.userRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__doctorDet__docto__47DBAE45" Association="Self.FK__doctorDet__docto__47DBAE45">
+            <End Role="userLogin" EntitySet="userLogin" />
+            <End Role="doctorDetails" EntitySet="doctorDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userLogin__RoleI__44FF419A" Association="Self.FK__userLogin__RoleI__44FF419A">
+            <End Role="userRole" EntitySet="userRole" />
+            <End Role="userLogin" EntitySet="userLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userLogin__RoleI__5AEE82B9" Association="Self.FK__userLogin__RoleI__5AEE82B9">
+            <End Role="userRole" EntitySet="userRole" />
+            <End Role="userLogin" EntitySet="userLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userLogin__RoleI__5EBF139D" Association="Self.FK__userLogin__RoleI__5EBF139D">
+            <End Role="userRole" EntitySet="userRole" />
+            <End Role="userLogin" EntitySet="userLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userLogin__RoleI__5FB337D6" Association="Self.FK__userLogin__RoleI__5FB337D6">
+            <End Role="userRole" EntitySet="userRole" />
+            <End Role="userLogin" EntitySet="userLogin" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="userRole">
+          <Key>
+            <PropertyRef Name="role_Id" />
+          </Key>
+          <Property Name="role_Id" Type="Int32" Nullable="false" />
+          <Property Name="role_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="userLogins" Relationship="Model.FK__userLogin__RoleI__44FF419A" FromRole="userRole" ToRole="userLogin" />
+        </EntityType>
+        <EntityContainer Name="Appoinment_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="userRoles" EntityType="Self.userRole" />
+          <EntitySet Name="userLogins" EntityType="Model.userLogin" />
+          <AssociationSet Name="FK__userLogin__RoleI__44FF419A" Association="Model.FK__userLogin__RoleI__44FF419A">
+            <End Role="userRole" EntitySet="userRoles" />
+            <End Role="userLogin" EntitySet="userLogins" />
+          </AssociationSet>
+          <EntitySet Name="doctorDetails" EntityType="Model.doctorDetail" />
+          <AssociationSet Name="FK__doctorDet__docto__47DBAE45" Association="Model.FK__doctorDet__docto__47DBAE45">
+            <End Role="userLogin" EntitySet="userLogins" />
+            <End Role="doctorDetail" EntitySet="doctorDetails" />
+          </AssociationSet>
+          <EntitySet Name="appointmentInfoes" EntityType="Model.appointmentInfo" />
+          <EntitySet Name="user_Info" EntityType="Model.user_Info" />
+          </EntityContainer>
+        <EntityType Name="userLogin">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="userRole" Relationship="Model.FK__userLogin__RoleI__44FF419A" FromRole="userLogin" ToRole="userRole" />
+          <NavigationProperty Name="doctorDetails" Relationship="Model.FK__doctorDet__docto__47DBAE45" FromRole="userLogin" ToRole="doctorDetail" />
+        </EntityType>
+        <Association Name="FK__userLogin__RoleI__44FF419A">
+          <End Type="Model.userRole" Role="userRole" Multiplicity="0..1" />
+          <End Type="Model.userLogin" Role="userLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRole">
+              <PropertyRef Name="role_Id" />
+            </Principal>
+            <Dependent Role="userLogin">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="doctorDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctor_Id" Type="Int32" />
+          <Property Name="startTime" Type="DateTime" Precision="3" />
+          <Property Name="endTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="userLogin" Relationship="Model.FK__doctorDet__docto__47DBAE45" FromRole="doctorDetail" ToRole="userLogin" />
+        </EntityType>
+        <Association Name="FK__doctorDet__docto__47DBAE45">
+          <End Type="Model.userLogin" Role="userLogin" Multiplicity="0..1" />
+          <End Type="Model.doctorDetail" Role="doctorDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userLogin">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="doctorDetail">
+              <PropertyRef Name="doctor_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="appointmentInfo">
+          <Key>
+            <PropertyRef Name="appointment_Id" />
+          </Key>
+          <Property Name="appointment_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctor_Id" Type="Int32" />
+          <Property Name="patient_Id" Type="Int32" />
+          <Property Name="doctor_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="patient_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="appointment_Date" Type="DateTime" Precision="0" />
+          <Property Name="appointment_Time" Type="Time" Precision="7" />
+          <Property Name="appointment_Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="user_Info">
+          <Key>
+            <PropertyRef Name="user_Id" />
+          </Key>
+          <Property Name="user_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_Id" Type="Int32" />
+          <Property Name="first_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="last_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile_Number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="dob" Type="DateTime" Precision="0" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Appoinment_Entities">
+          <EntitySetMapping Name="userRoles">
+            <EntityTypeMapping TypeName="Model.userRole">
+              <MappingFragment StoreEntitySet="userRole">
+                <ScalarProperty Name="role_Id" ColumnName="role_Id" />
+                <ScalarProperty Name="role_Name" ColumnName="role_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userLogins">
+            <EntityTypeMapping TypeName="Model.userLogin">
+              <MappingFragment StoreEntitySet="userLogin">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="doctorDetails">
+            <EntityTypeMapping TypeName="Model.doctorDetail">
+              <MappingFragment StoreEntitySet="doctorDetails">
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="doctor_Id" ColumnName="doctor_Id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="appointmentInfoes">
+            <EntityTypeMapping TypeName="Model.appointmentInfo">
+              <MappingFragment StoreEntitySet="appointmentInfo">
+                <ScalarProperty Name="appointment_Status" ColumnName="appointment_Status" />
+                <ScalarProperty Name="appointment_Time" ColumnName="appointment_Time" />
+                <ScalarProperty Name="appointment_Date" ColumnName="appointment_Date" />
+                <ScalarProperty Name="patient_Name" ColumnName="patient_Name" />
+                <ScalarProperty Name="doctor_Name" ColumnName="doctor_Name" />
+                <ScalarProperty Name="patient_Id" ColumnName="patient_Id" />
+                <ScalarProperty Name="doctor_Id" ColumnName="doctor_Id" />
+                <ScalarProperty Name="appointment_Id" ColumnName="appointment_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_Info">
+            <EntityTypeMapping TypeName="Model.user_Info">
+              <MappingFragment StoreEntitySet="user_Info">
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="mobile_Number" ColumnName="mobile_Number" />
+                <ScalarProperty Name="email_Address" ColumnName="email_Address" />
+                <ScalarProperty Name="last_Name" ColumnName="last_Name" />
+                <ScalarProperty Name="first_Name" ColumnName="first_Name" />
+                <ScalarProperty Name="role_Id" ColumnName="role_Id" />
+                <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

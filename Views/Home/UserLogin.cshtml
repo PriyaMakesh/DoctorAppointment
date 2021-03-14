@@ -1,0 +1,54 @@
+﻿
+
+@model DoctorAppointment.userLogin
+
+
+
+<h3>User Login</h3>
+
+
+@using (Html.BeginForm("UserLogin", "Home", FormMethod.Post))
+{
+    //this  is for create form tag
+    @Html.AntiForgeryToken() // this is for prevent CSRF attack
+    @Html.ValidationSummary(true)
+   
+
+    <table>
+        <tr>
+            <td>@Html.LabelFor(a => a.UserName)</td>
+            <td>@Html.TextBoxFor(a => a.UserName,new { autocomplete = "off" })</td>
+            <td>@Html.ValidationMessageFor(a => a.UserName)</td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(a => a.Password)
+            </td>
+            <td>
+                @Html.PasswordFor(a => a.Password, new { autocomplete = "off" })
+            </td>
+            <td>
+                @Html.ValidationMessageFor(a => a.Password)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+
+                <input type="submit" value="Login" />
+
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+}
+
+
+@* This below line is for create javascript section *@
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
